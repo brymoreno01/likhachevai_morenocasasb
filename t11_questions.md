@@ -13,8 +13,8 @@ ___
 ```
     |                 | Monday | Wednesday | Friday |
     |-----------------|--------|-----------|--------|
-    | Driver          |        |           |        |
-    | Navigator       |        |           |        |
+    | Driver          | Iuliia |           |        |
+    | Navigator       |Bryanna |           |        |
     | Quality Control |        |           |        |
 ```
 
@@ -26,7 +26,14 @@ ___
     what each one represents:
 
 ```
-    **Replace This Text With Your Response**
+    t11_game.py:
+    1. class Game - creates the game the handles its logic
+    
+    t11_NPC.py
+    1. class NPC - creates the NPC object and responsible for moving it
+    
+    t11_player.py:
+    1. class Player - creates the Player object and the user can move it using the keyboard
 ```
 
 2.b. Look more closely at the **t11_game.py** file. There are 8 lines; identify if they are 
