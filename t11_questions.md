@@ -13,8 +13,8 @@ ___
 ```
     |                 | Monday | Wednesday | Friday |
     |-----------------|--------|-----------|--------|
-    | Driver          | Iuliia |Bryanna    |        |
-    | Navigator       |Bryanna |Iuliia     |        |
+    | Driver          | Iuliia |Bryanna    | Iuliia |
+    | Navigator       |Bryanna |Iuliia     | Bryanna|
     | Quality Control |        |           |        |
 ```
 
