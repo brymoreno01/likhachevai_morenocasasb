@@ -13,8 +13,8 @@ ___
 ```
     |                 | Monday | Wednesday | Friday |
     |-----------------|--------|-----------|--------|
-    | Driver          | Iuliia |           |        |
-    | Navigator       |Bryanna |           |        |
+    | Driver          | Iuliia |Bryanna    |        |
+    | Navigator       |Bryanna |Iuliia     |        |
     | Quality Control |        |           |        |
 ```
 
@@ -44,14 +44,14 @@ ___
 (Some are more than one answer!)
 
 ```
-    self.size = 800, 600                              # **Replace This Text With Your Response**
-    self.running = True                               # **Replace This Text With Your Response**
-    pygame.init()                                     # **Replace This Text With Your Response**
-    self.screen = pygame.display.set_mode(self.size)  # **Replace This Text With Your Response**
-    self.clock = pygame.time.Clock()                  # **Replace This Text With Your Response**
-    self.player = Player(self.size)                   # **Replace This Text With Your Response**
-    self.good_npc = NPC(self.size)                    # **Replace This Text With Your Response**
-    self.screen.fill('#9CBEBA')                       # **Replace This Text With Your Response**
+    self.size = 800, 600                              # Instance parameter
+    self.running = True                               # Instance parameter
+    pygame.init()                                     # Method calls to another class or library
+    self.screen = pygame.display.set_mode(self.size)  # Instance parameter & Method call to another library
+    self.clock = pygame.time.Clock()                  # Instance parameter & Method call to another library
+    self.player = Player(self.size)                   # Instance parameter & Method call to another class
+    self.good_npc = NPC(self.size)                    # Instance parameter & Mathod call to another class
+    self.screen.fill('#9CBEBA')                       # Method call within the class & Method call to another library
 ```
 
 2.c. Parse through the `run()` method of **t11_game.py**. In particular, note how the game handles 
@@ -63,10 +63,10 @@ ___
 In your own words, describe how the four items above are accomplished in the Game class:
 
 ```
-    a) **Replace This Text With Your Response**
-    b) **Replace This Text With Your Response**
-    c) **Replace This Text With Your Response**
-    d) **Replace This Text With Your Response**
+    a) Once the player and the NPC collides, it would end the game and will print text over the screen
+    b) Movement will be true for the NPC to move around the screen freely while the player is being moved by the user.
+    c) The player and NPC will be placed in new positions
+    d) The game updates the screen every 24 seconds
 ```
 
 _Return to the Google Doc to continue the assignment._
@@ -79,7 +79,7 @@ _Return to the Google Doc to continue the assignment._
      How do you know?
 
 ```
-    **Replace This Text With Your Response**
+Player inherits the Sprite function since it will be reused for movement. It is in the parenthesis inside the class Player.
 ```
 
 3.b. Sprites need two attributes to function: A surface and a rectangle. The surface (implemented in a `Surface` 
@@ -89,27 +89,35 @@ _Return to the Google Doc to continue the assignment._
      and explain what each line does. 
 
 ```
-    **Replace This Text With Your Response**
+The "Surface" attribute loads the images for the characters you want to implement in the code. "Rect" attribute represents the screen where the characters are allowed to bouce back and forth.
 ```
 
 3.c. The `Player` class has only one method so far. Parse that code and docstring, and describe what it does:
 
 ```
-    **Replace This Text With Your Response**
+    def movement(self, keys):
+        """
+        Handles up, down, left, right movement events from the user
+
+        :param keys: key presses from pygame event listener
+        :return: None
+        """
+      
+It allows the user to use the arrow keys where they want their player to move in their preferred direction.
 ```
 
 3.d. Similarly, the `NPC` class in **t11_NPC.py** also inherits the `Sprite` class from **pygame**, 
      but it does a little more than our `Player` class. Compare the two classes, and identify/describe the differences:
 
 ```
-    **Replace This Text With Your Response**
+NPC also have the movement methods but the code is the one who moves the NPC in random direction while the user has full control to the player. NPC has the "get_direction" and "movement" as the define section.
 ```
 
 3.e. Of particular interest is how we keep the `NPC` on the screen. Describe how we're using 
     the `self.rect` attribute in the `get_direction()` method to keep the `NPC` visible.  
 
 ```
-    **Replace This Text With Your Response**
+In the code, it is implemented where the "self.rect.bottom" is greater than or equals to "self.screen_size[1]" and "self.rect.right" is greater than or equals to "self.screen_size[0]"
 ```
 
 _Return to the Google doc to continue the assignment._ 

@@ -33,6 +33,8 @@ class NPC(pygame.sprite.Sprite):
         super().__init__()
         self.surf = pygame.image.load('images/tacocat.png').convert_alpha()
         self.surf.set_colorkey((255, 255, 255), pygame.RLEACCEL)
+        self.surf2 = pygame.image.load('images/whiskers.png').convert_alpha()
+        self.surf2.set_colorkey((255, 255, 255), pygame.RLEACCEL)
         self.rect = self.surf.get_rect()
         self.rect.move_ip(self.screen_size[0]//4, self.screen_size[1]//4)
         self.path = random.choice(self.directions)
@@ -60,6 +62,29 @@ class NPC(pygame.sprite.Sprite):
             # Randomly change direction 5% of the time
             self.path = random.choice(self.directions)
 
+class TacoCat(NPC):
+    def movement(self):
+        """
+        Moves the NPC around.
+
+        :return: None
+        """
+        if self.path == "north":
+            self.rect.move_ip(0, -self.move_distance)
+            self.position[1] -= self.move_distance
+        elif self.path == "south":
+            self.rect.move_ip(0, self.move_distance)
+            self.position[1] += self.move_distance
+        if self.path == "east":
+            self.rect.move_ip(self.move_distance, 0)
+            self.position[0] -= self.move_distance
+        if self.path == "west":
+            self.rect.move_ip(-self.move_distance, 0)
+            self.position[0] += self.move_distance
+
+        self.get_direction()
+
+class Whiskers(NPC):
     def movement(self):
         """
         Moves the NPC around.
