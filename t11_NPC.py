@@ -1,6 +1,6 @@
 ######################################################################
-# Author: Dr. Scott Heggen        TODO: Change this to your names
-# Username: heggens               TODO: Change this to your usernames
+# Author: Iuliia Likhacheva, Bryanna Moreno Casas
+# Username: likhachevai, morenocasasb
 #
 # Assignment: T11: The Legend of Tuna: Breath of Catnip
 #
@@ -20,27 +20,21 @@ import pygame, random
 
 class NPC(pygame.sprite.Sprite):
     move_distance = 10
-    directions = ["north", "east", "south", "west"]
 
     def __init__(self, screen_size):
         """
-        Represents the Good NPC in the game.
+        Handle the common logic: screen size, rect position, direction logic
 
         :param screen_size: size of the window, for ensuring the NPC stays on screen
         """
-        print("Spawning NPC")
-        self.screen_size = screen_size
         super().__init__()
-        self.surf = pygame.image.load('images/tacocat.png').convert_alpha()
-        self.surf.set_colorkey((255, 255, 255), pygame.RLEACCEL)
-        self.rect = self.surf.get_rect()
-        self.rect.move_ip(self.screen_size[0]//4, self.screen_size[1]//4)
-        self.path = random.choice(self.directions)
-        self.position = [0,0]
+        self.screen_size = screen_size
+        self.rect = pygame.Rect(0, 0, 0, 0) # Placeholder until child class sets up
+        self.path = None #Child class or get_direction sets this
 
     def get_direction(self):
         """
-        Keeps the NPC on the screen.
+        Keeps the Good NPC on the screen.
 
         :return: None
         """
@@ -60,23 +54,53 @@ class NPC(pygame.sprite.Sprite):
             # Randomly change direction 5% of the time
             self.path = random.choice(self.directions)
 
+
+class GoodNPC(NPC):
+    directions = ['north', 'east', 'south', 'west']
+
+    def __init__(self, screen_size):
+        super().__init__(screen_size)
+        self.surf = pygame.image.load('images/tacocat.png').convert_alpha()
+        self.surf.set_colorkey((255, 255, 255), pygame.RLEACCEL)
+        self.rect = self.surf.get_rect()
+        self.rect.move_ip(screen_size[0] // 4, screen_size[1] // 4)
+        self.path = random.choice(self.directions)
+
+
     def movement(self):
         """
-        Moves the NPC around.
+        Moves the Good NPC around.
 
         :return: None
         """
         if self.path == "north":
             self.rect.move_ip(0, -self.move_distance)
-            self.position[1] -= self.move_distance
         elif self.path == "south":
             self.rect.move_ip(0, self.move_distance)
-            self.position[1] += self.move_distance
         if self.path == "east":
             self.rect.move_ip(self.move_distance, 0)
-            self.position[0] -= self.move_distance
         if self.path == "west":
             self.rect.move_ip(-self.move_distance, 0)
-            self.position[0] += self.move_distance
 
         self.get_direction()
+
+
+class BadNPC(NPC):
+    def __init__(self, screen_size):
+        super().__init__(screen_size)
+        self.surf = pygame.image.load('images/whiskers.png').convert_alpha()
+        self.surf.set_colorkey((255, 255, 255), pygame.RLEACCEL)
+        self.rect = self.surf.get_rect()
+        self.rect.move_ip(screen_size[0] // 4, screen_size[1] // 4)
+        self.horizontal_direction = 1  # start moving right
+        self.vertical_step = 30 # pixels to move vertically when reaching edge
+
+    def movement(self):
+        self.rect.move_ip(self.horizontal_direction * self.move_distance, 0)
+        if self.rect.right >= self.screen_size[0]:
+            self.rect.right = self.screen_size[0]
+            self.horizontal_direction = -1
+        elif self.rect.left <= 0:
+            self.rect.left = 0
+            self.rect.move_ip(0, self.vertical_step)
+            self.horizontal_direction = 1

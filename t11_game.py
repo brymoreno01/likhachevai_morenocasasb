@@ -1,6 +1,6 @@
 ######################################################################
-# Author: Dr. Scott Heggen        TODO: Change this to your names
-# Username: heggens               TODO: Change this to your usernames
+# Author: Iuliia Likhacheva, Bryanna Moreno Casas
+# Username: likhachevai, morenocasasb
 #
 # Assignment: T11: The Legend of Tuna: Breath of Catnip
 #
@@ -17,7 +17,8 @@
 ####################################################################################
 
 import pygame
-from t11_NPC import NPC
+from t11_NPC import GoodNPC
+from t11_NPC import BadNPC
 from t11_player import Player
 
 
@@ -33,7 +34,8 @@ class Game:
         self.screen.fill('#9CBEBA')
         self.clock = pygame.time.Clock()
         self.tuna = Player(self.size)
-        self.tacocat = NPC(self.size)
+        self.tacocat = GoodNPC(self.size)
+        self.whickers = BadNPC(self.size)
 
 
     def run(self):
@@ -48,12 +50,25 @@ class Game:
                 if event.type == pygame.QUIT:
                     self.running = False
 
-            # Handle user and game events next
-            if pygame.sprite.spritecollide(self.tuna, [self.tacocat], False):
+            keys = pygame.key.get_pressed()
+            self.tuna.movement(keys)
+
+            #Move NPCs
+            self.tacocat.movement()
+            self.whickers.movement()
+
+            self.screen.fill('#9CBEBA') # clear the screen
+
+            # Check collisions
+            if pygame.sprite.collide_rect(self.tuna, self.tacocat):
                 # Collision! Prints the game ending text to the screen.
                 font = pygame.font.SysFont("ComicSans", 36)
                 txt = font.render('Taco, you caught me!!', True, "darkblue")
                 self.screen.blit(txt, (self.size[0]//2, self.size[1]-100))
+            elif pygame.sprite.collide_rect(self.tuna, self.whickers):
+                font = pygame.font.SysFont("ComicSans", 36)
+                txt = font.render('Oh no, Whiskers got you!', True, "darkred")
+                self.screen.blit(txt, (self.size[0] // 2, self.size[1] - 100))
             else:
                 # Keep playing!
                 self.tuna.movement(pygame.key.get_pressed())
@@ -61,6 +76,7 @@ class Game:
                 self.screen.fill('#9CBEBA')
                 self.screen.blit(self.tuna.surf, self.tuna.rect)
                 self.screen.blit(self.tacocat.surf, self.tacocat.rect)
+                self.screen.blit(self.whickers.surf, self.whickers.rect)
             pygame.display.update()
             self.clock.tick(24)
 
