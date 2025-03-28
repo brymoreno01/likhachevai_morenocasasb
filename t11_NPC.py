@@ -93,7 +93,7 @@ class BadNPC(NPC):
         self.rect = self.surf.get_rect()
         self.rect.move_ip(screen_size[0] // 4, screen_size[1] // 4)
         self.horizontal_direction = 1  # start moving right
-        self.vertical_step = 20 # pixels to move vertically when reaching edge
+        self.vertical_step = 30 # pixels to move vertically when reaching edge
 
     def movement(self):
         self.rect.move_ip(self.horizontal_direction * self.move_distance, 0)

@@ -134,7 +134,7 @@ instead of an NPC. Debug any errors you get; the program should work, at this po
 4.a. How hard was it to create the child class, given the parent?
 
 ```
-    **Replace This Text With Your Response**
+    At first, it was hard to understand how the code should look like, however, when we get the syntax logic, it was easy tp create. 
 ```
 
 The parent class `NPC` currently holds attributes like the image used, which are actually more specific to 
@@ -155,7 +155,7 @@ make a design choice. We could:
      choice and why: 
 
 ```
-    **Replace This Text With Your Response**
+    We decided to remove "movement" from NPC, and implement separate "movement" function in each child class. It is easier understand how the code works, but the code is longer and more time-consuming to write.
 ```
 
 Finally, we need to create our enemy object, Whiskers. Update **t11_game.py** to:
@@ -173,5 +173,5 @@ Finally, we need to create our enemy object, Whiskers. Update **t11_game.py** to
     How did you overcome them?
 
 ```
-    **Replace This Text With Your Response**
+    It was hard to understand what specific attributes should be in a Parent class, and what in Child classes. We analyzed the whole code and figured it out.
 ```
